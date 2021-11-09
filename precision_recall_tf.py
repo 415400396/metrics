@@ -43,7 +43,7 @@ def pretrained_model(img_shape, num_classes, layer_type):
     return pretrained_model
 
 def get_npdata(data_dir):
-    path = pathlib.Path(path)
+    path = pathlib.Path(data_dir)
     files = sorted([file for ext in IMAGE_EXTENSIONS for file in path.glob('*.{}'.format(ext))])
     X_train = []
     for file in files:
