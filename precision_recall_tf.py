@@ -5,12 +5,12 @@ from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
 
 from numpy import subtract
 import numpy as np
-from keras.preprocessing.image import load_img
-from keras.preprocessing.image import img_to_array
-from keras.applications.vgg16 import VGG16
-from keras.layers import Input, Flatten, Dense
-from keras.models import Model
-from keras import backend as K
+from tensorflow.keras.preprocessing.image import load_img
+from tensorflow.keras.preprocessing.image import img_to_array
+from tensorflow.keras.applications.vgg16 import VGG16
+from tensorflow.keras.layers import Input, Flatten, Dense
+from tensorflow.keras.models import Model
+from tensorflow.keras import backend as K
 import matplotlib.pyplot as plt
 import os
 
