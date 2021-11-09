@@ -41,7 +41,7 @@ def pretrained_model(img_shape, num_classes, layer_type):
 
     return pretrained_model
 
-def get_npdata(name_imgs_train):
+def get_npdata(dir_data, name_imgs_train):
     X_train = []
     for i, myid in enumerate(name_imgs_train):
         image = load_img(dir_data + "/" + myid,
@@ -118,10 +118,10 @@ def knn_precision_recall(real_features, gen_features, k = 3):
 
 def main():
     args = parser.parse_args()
-    iamges_real = np.sort(os.listdir(args.path[0]))
+    images_real = np.sort(os.listdir(args.path[0]))
     images_generated = np.sort(os.listdir(args.path[1]))
-    X_real = get_npdata(iamges_real)
-    X_gen = get_npdata(images_generated)
+    X_real = get_npdata(args.path[0], images_real)
+    X_gen = get_npdata(args.path[1], images_generated)
     model = pretrained_model(X_real.shape[1:], 10, 'relu')
     real_feature_vector = model.predict(X_real)
     gen_feature_vector = model.predict(X_gen)
