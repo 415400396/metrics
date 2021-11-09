@@ -1,4 +1,3 @@
-from tensorflow import keras
 from numpy.linalg import norm
 import os
 import pathlib
