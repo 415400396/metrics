@@ -12,7 +12,6 @@ from tensorflow.keras.layers import Input, Flatten, Dense
 from tensorflow.keras.models import Model
 from tensorflow.keras import backend as K
 import matplotlib.pyplot as plt
-import os
 
 IMAGE_EXTENSIONS = {'bmp', 'jpg', 'jpeg', 'pgm', 'png', 'ppm',
                     'tif', 'tiff', 'webp'}
@@ -43,7 +42,7 @@ def pretrained_model(img_shape, num_classes, layer_type):
 
 def get_npdata(data_dir):
     path = pathlib.Path(data_dir)
-    files = sorted([file for ext in IMAGE_EXTENSIONS for file in path.glob('*.{}'.format(ext))])
+    files = sorted([file for ext in IMAGE_EXTENSIONS for file in path.rglob('*.{}'.format(ext))])
     X_train = []
     for file in files:
         image = load_img(file)
