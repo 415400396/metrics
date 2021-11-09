@@ -15,6 +15,8 @@ from keras import backend as K
 import matplotlib.pyplot as plt
 import os
 
+IMAGE_EXTENSIONS = {'bmp', 'jpg', 'jpeg', 'pgm', 'png', 'ppm',
+                    'tif', 'tiff', 'webp'}
 parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
 parser.add_argument('path', type=str, nargs=2,
                     help=('Paths to the real images and generated images '
@@ -40,10 +42,12 @@ def pretrained_model(img_shape, num_classes, layer_type):
 
     return pretrained_model
 
-def get_npdata(dir_data, name_imgs_train):
+def get_npdata(data_dir):
+    path = pathlib.Path(path)
+    files = sorted([file for ext in IMAGE_EXTENSIONS for file in path.glob('*.{}'.format(ext))])
     X_train = []
-    for i, myid in enumerate(name_imgs_train):
-        image = load_img(dir_data + "/" + myid)
+    for file in files:
+        image = load_img(file)
         image = img_to_array(image)/255.0
         X_train.append(image)
     X_train = np.array(X_train)
@@ -116,10 +120,8 @@ def knn_precision_recall(real_features, gen_features, k = 3):
 
 def main():
     args = parser.parse_args()
-    images_real = np.sort(os.listdir(args.path[0]))
-    images_generated = np.sort(os.listdir(args.path[1]))
-    X_real = get_npdata(args.path[0], images_real)
-    X_gen = get_npdata(args.path[1], images_generated)
+    X_real = get_npdata(args.path[0])
+    X_gen = get_npdata(args.path[1])
     model = pretrained_model(X_real.shape[1:], 10, 'relu')
     real_feature_vector = model.predict(X_real)
     gen_feature_vector = model.predict(X_gen)
