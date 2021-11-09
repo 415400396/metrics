@@ -19,7 +19,6 @@ parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
 parser.add_argument('path', type=str, nargs=2,
                     help=('Paths to the real images and generated images '
                           ))
-
 def pretrained_model(img_shape, num_classes, layer_type):
     model_vgg16_conv = VGG16(weights='imagenet', include_top=False)
 
@@ -44,8 +43,7 @@ def pretrained_model(img_shape, num_classes, layer_type):
 def get_npdata(dir_data, name_imgs_train):
     X_train = []
     for i, myid in enumerate(name_imgs_train):
-        image = load_img(dir_data + "/" + myid,
-                         target_size=img_shape[:2])
+        image = load_img(dir_data + "/" + myid)
         image = img_to_array(image)/255.0
         X_train.append(image)
     X_train = np.array(X_train)
