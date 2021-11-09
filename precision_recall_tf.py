@@ -1,7 +1,10 @@
 from tensorflow import keras
 from numpy.linalg import norm
-from numpy import subtract
 import os
+import pathlib
+from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
+
+from numpy import subtract
 import numpy as np
 from keras.preprocessing.image import load_img
 from keras.preprocessing.image import img_to_array
@@ -12,6 +15,7 @@ from keras import backend as K
 import matplotlib.pyplot as plt
 import os
 
+parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
 parser.add_argument('path', type=str, nargs=2,
                     help=('Paths to the real images and generated images '
                           ))
